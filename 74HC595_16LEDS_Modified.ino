@@ -16,29 +16,29 @@ void setup() {
   pinMode(latchPin, OUTPUT);
   pinMode(clockPin, OUTPUT);
   pinMode(dataPin, OUTPUT);
-  atualizar();
+  updateReg();
 }
 
 void loop() {
-  Efeito1(2);
-  Efeito2(2);
-  Efeito3(1);
-  Efeito4(1);
-  Efeito5(1);
-  Efeito6(1);
-  Efeito7(1);
-  Efeito8(1);
-  Efeito9(1);
-  Efeito10(1);
-  Efeito11(30);
-  Efeito12(10);
-  Efeito13(5);
-  Efeito14(5);
-  Efeito15(1);
-  Efeito16(1);
+  Effect1(2);
+  Effect2(2);
+  Effect3(1);
+  Effect4(1);
+  Effect5(1);
+  Effect6(1);
+  Effect7(1);
+  Effect8(1);
+  Effect9(1);
+  Effect10(1);
+  Effect11(30);
+  Effect12(10);
+  Effect13(5);
+  Effect14(5);
+  Effect15(1);
+  Effect16(1);
 }
 
-void atualizar() {
+void updateReg() {
   digitalWrite(latchPin, LOW);
   for (int i = numLeds - 1; i >= 0; i--) {
     digitalWrite(clockPin, LOW);
@@ -48,10 +48,10 @@ void atualizar() {
   digitalWrite(latchPin, HIGH);
 }
 
-void limpar() {
+void clearReg() {
   for (int i = 0; i < numLeds; i++) {
     leds[i] = LOW;
-    atualizar();
+    updateReg();
   }
 }
 
@@ -65,136 +65,136 @@ void printLabel(char* effect, int repeat) {
   Serial.println("times");
 }
 
-//Efeito #1: acende um por um da esquerda para a direita
-void Efeito1(int repeat) {
+//Effect #1: Lights up one LED at a time from left to right.
+void Effect1(int repeat) {
   printLabel("Effect 1", repeat);
-  limpar();
+  clearReg();
   for (int t = 0; t < repeat; t++) {
     for (int i = 0; i < numLeds; i++) {
       leds[i] = HIGH;
       delay(40);
-      atualizar();
+      updateReg();
 
       leds[i] = LOW;
       delay(40);
-      atualizar();
+      updateReg();
     }
   }
 }
 
-//Efeito #2: acende um por um da direita para a esquerda
-void Efeito2(int repeat) {
+//Effect #2: Lights up one LED at a time from right to left.
+void Effect2(int repeat) {
   printLabel("Effect 2", repeat);
-  limpar();
+  clearReg();
   for (int t = 0; t < repeat; t++) {
     for (int i = numLeds - 1; i >= 0; i--) {
       leds[i] = HIGH;
       delay(40);
-      atualizar();
+      updateReg();
 
       leds[i] = LOW;
       delay(40);
-      atualizar();
+      updateReg();
     }
   }
 }
 
-//Efeito #3: acende uma fileira inteira da esquerda para a direita
-void Efeito3(int repeat) {
+//Effect #3: Lights up all LEDs sequentially from left to right.
+void Effect3(int repeat) {
   printLabel("Effect 3", repeat);
-  limpar();
+  clearReg();
   for (int t = 0; t < repeat; t++) {
     for (int i = 0; i < numLeds; i++) {
       leds[i] = HIGH;
       delay(80);
-      atualizar();
+      updateReg();
     }
     for (int i = 0; i < numLeds; i++) {
       leds[i] = LOW;
       delay(80);
-      atualizar();
+      updateReg();
     }
   }
 }
 
-//Efeito #4: acende uma fileira inteira da direita para a esquerda
-void Efeito4(int repeat) {
+//Effect #4: Lights up all LEDs sequentially from right to left.
+void Effect4(int repeat) {
   printLabel("Effect 4", repeat);
-  limpar();
+  clearReg();
   for (int t = 0; t < repeat; t++) {
     for (int i = numLeds - 1; i >= 0; i--) {
       leds[i] = HIGH;
       delay(80);
-      atualizar();
+      updateReg();
     }
     for (int i = numLeds - 1; i >= 0; i--) {
       leds[i] = LOW;
       delay(80);
-      atualizar();
+      updateReg();
     }
   }
 }
 
-//Efeito #5: mix dos efeitos #1 e #4
-void Efeito5(int repeat) {
+//Effect #5: Combination of effects 1 and 4.
+void Effect5(int repeat) {
   printLabel("Effect 5", repeat);
-  limpar();
+  clearReg();
   int k = numLeds - 1;
   for (int t = 0; t < repeat; t++) {
     for (int j = numLeds - 1; j >= 0; j--) {
       for (int i = 0; i < k; i++) {
         leds[i] = HIGH;
         delay(25);
-        atualizar();
+        updateReg();
         leds[i] = LOW;
         delay(25);
-        atualizar();
+        updateReg();
       }
       leds[j] = HIGH;
       delay(25);
-      atualizar();
+      updateReg();
       k--;
     }
   }
 }
 
-//Efeito #6: mix dos efeitos #2 e #3
-void Efeito6(int repeat) {
+//Effect #6: Combination of effects 2 and 3.
+void Effect6(int repeat) {
   printLabel("Effect 6", repeat);
-  limpar();
+  clearReg();
   int k = 0;
   for (int t = 0; t < repeat; t++) {
     for (int j = 0; j < numLeds; j++) {
       for (int i = numLeds; i >= k; i--) {
         leds[i] = HIGH;
         delay(25);
-        atualizar();
+        updateReg();
         leds[i] = LOW;
         delay(25);
-        atualizar();
+        updateReg();
       }
       leds[j] = HIGH;
       delay(25);
-      atualizar();
+      updateReg();
       k++;
     }
   }
 }
 
-//Efeito #7: acende os leds de fora para dentro
-void Efeito7(int repeat) {
+//Effect #7: Lights up the LEDs from the outside to the inside.
+void Effect7(int repeat) {
   printLabel("Effect 7", repeat);
-  limpar();
+  clearReg();
   int j = 0;
   int k = numLeds - 1;
   for (int t = 0; t < repeat; t++) {
     for (int i = j; i < k; i++) {
       leds[j] = HIGH;
       delay(60);
-      atualizar();
+      updateReg();
       leds[k] = HIGH;
       delay(60);
-      atualizar();
+      updateReg();
       j++;
       k--;
     }
@@ -203,30 +203,30 @@ void Efeito7(int repeat) {
     for (int i = j; i < k; i++) {
       leds[j] = LOW;
       delay(60);
-      atualizar();
+      updateReg();
       leds[k] = LOW;
       delay(60);
-      atualizar();
+      updateReg();
       j++;
       k--;
     }
   }
 }
 
-//Efeito #8: acende os leds de dentro para fora
-void Efeito8(int repeat) {
+//Effect #8: Lights up the LEDs from the inside to the outside.
+void Effect8(int repeat) {
   printLabel("Effect 8", repeat);
-  limpar();
+  clearReg();
   int j = 7;
   int k = 8;
   for (int t = 0; t < repeat; t++) {
     for (int i = 0; i < 8; i++) {
       leds[j] = HIGH;
       delay(60);
-      atualizar();
+      updateReg();
       leds[k] = HIGH;
       delay(60);
-      atualizar();
+      updateReg();
       j--;
       k++;
     }
@@ -236,111 +236,111 @@ void Efeito8(int repeat) {
     for (int i = 0; i < 8; i++) {
       leds[j] = LOW;
       delay(60);
-      atualizar();
+      updateReg();
       leds[k] = LOW;
       delay(60);
-      atualizar();
+      updateReg();
       j--;
       k++;
     }
   }
 }
 
-//Efeito #9: inverso do efeito #5
-void Efeito9(int repeat) {
+//Effect #9: Inverse version of effect 5.
+void Effect9(int repeat) {
   printLabel("Effect 9", repeat);
-  limpar();
+  clearReg();
   int j = 0;
   for (int t = 0; t < repeat; t++) {
     for (j = 0; j < numLeds; j++) {
       leds[j] = HIGH;
       delay(40);
-      atualizar();
+      updateReg();
 
       for (int i = j + 1; i < numLeds; i++) {
         leds[i] = HIGH;
         delay(40);
-        atualizar();
+        updateReg();
         leds[i] = LOW;
         delay(40);
-        atualizar();
+        updateReg();
       }
     }
   }
 }
 
-//Efeito #10: inverso do efeito #6
-void Efeito10(int repeat) {
+//Effect #10: Inverse version of effect 6.
+void Effect10(int repeat) {
   printLabel("Effect 10", repeat);
-  limpar();
+  clearReg();
   int j = numLeds - 1;
   for (int t = 0; t < repeat; t++) {
     for (j = numLeds - 1; j >= 0; j--) {
       leds[j] = HIGH;
       delay(40);
-      atualizar();
+      updateReg();
       for (int i = j - 1; i >= 0; i--) {
         leds[i] = HIGH;
         delay(40);
-        atualizar();
+        updateReg();
         leds[i] = LOW;
         delay(40);
-        atualizar();
+        updateReg();
       }
     }
   }
 }
 
-//Efeito #11: luzes aleatórias
-void Efeito11(int repeat) {
+//Effect #11: Lights up a random LED.
+void Effect11(int repeat) {
   printLabel("Effect 11", repeat);
-  limpar();
+  clearReg();
   for (int t = 0; t < repeat; t++) {
     int num = random(1, 17);
     leds[num] = HIGH;
     delay(100);
-    atualizar();
+    updateReg();
     leds[num] = LOW;
     delay(100);
-    atualizar();
+    updateReg();
   }
 }
 
-//Efeito #12: duas luzes aleatórias por vez
-void Efeito12(int repeat) {
+//Effect #12: Lights up two random LEDs.
+void Effect12(int repeat) {
   printLabel("Effect 12", repeat);
-  limpar();
+  clearReg();
   for (int t = 0; t < repeat; t++) {
     int num1 = random(1, 17);
     int num2 = random(1, 17);
     if (num1 == num2) {
       leds[num1] = HIGH;
       delay(300);
-      atualizar;
+      updateReg;
     }
     else if (num1 != num2) {
       leds[num1] = HIGH;
-      atualizar();
+      updateReg();
       leds[num2] = HIGH;
-      atualizar();
+      updateReg();
       delay(300);
       leds[num1] = LOW;
-      atualizar();
+      updateReg();
       leds[num2] = LOW;
-      atualizar();
+      updateReg();
     }
   }
 }
 
-//Efeito #13: luzes de natal (par e ímpar)
-void Efeito13(int repeat) {
+//Effect #13: Lights up even and odd LEDs alternately.
+void Effect13(int repeat) {
   printLabel("Effect 13", repeat);
-  limpar();
+  clearReg();
   for (int t = 0; t < repeat; t++) {
     for (int i = 0; i < numLeds; i++) {
       if (i % 2 == 0 || i == 0) {
         leds[i] = HIGH;
-        atualizar();
+        updateReg();
       }
     }
     delay(300);
@@ -348,50 +348,50 @@ void Efeito13(int repeat) {
     for (int i = 0; i < numLeds; i++) {
       if (i % 2 == 0 || i == 0) {
         leds[i] = LOW;
-        atualizar();
+        updateReg();
       }
     }
 
     for (int i = 0; i < numLeds; i++)  {
       if (i % 2 != 0) {
         leds[i] = HIGH;
-        atualizar();
+        updateReg();
       }
     }
     delay(300);
   }
 }
 
-//Efeito #14: fileira de leds (a cada 4)
-void Efeito14(int repeat) {
+//Effect #14: Lights up LEDs in groups of 4.
+void Effect14(int repeat) {
   printLabel("Effect 14", repeat);
-  limpar();
+  clearReg();
   int a = 0;
   int b = 4;
   int c = 8;
   int d = 12;
   for (int t = 0; t < repeat; t++) {
     for (int i = 0; i < 4; i++) {
-      limpar();
+      clearReg();
       leds[a] = HIGH;
-      atualizar();
+      updateReg();
       leds[b] = HIGH;
-      atualizar();
+      updateReg();
       leds[c] = HIGH;
-      atualizar();
+      updateReg();
       leds[d] = HIGH;
-      atualizar();
+      updateReg();
 
       delay(200);
 
       leds[a] = LOW;
-      atualizar();
+      updateReg();
       leds[b] = LOW;
-      atualizar();
+      updateReg();
       leds[c] = LOW;
-      atualizar();
+      updateReg();
       leds[d] = LOW;
-      atualizar();
+      updateReg();
 
       a++;
       b++;
@@ -414,47 +414,47 @@ void Efeito14(int repeat) {
   }
 }
 
-//Efeito #15: "vai e volta" até completar a sequência
-void Efeito15(int repeat) {
+//Effect #15: LEDs go back and forth until the sequence is complete.
+void Effect15(int repeat) {
   printLabel("Effect 15", repeat);
-  limpar();
+  clearReg();
   for (int t = 0; t < repeat; t++) {
     for (int count = 0; count <= numLeds; count++)  {
       for (int i = 0; i < count; i++) {
         leds[i] = HIGH;
         delay(10);
-        atualizar();
+        updateReg();
       }
       delay(100);
       for (int i = count; i >= 0; i--) {
         leds[i] = LOW;
         delay(10);
-        atualizar();
+        updateReg();
       }
       delay(500);
     }
   }
 }
 
-//Efeito #16:
-void Efeito16(int repeat) {
+//Effect #16: Sequence in alternating pairs.
+void Effect16(int repeat) {
   printLabel("Effect 16", repeat);
-  limpar();
-  
+  clearReg();
+
   for (int t = 0; t < repeat; t++) {
     int a = 0;
     int b = 2;
     for (int i = 0; i < numLeds - 1; i++) {
       leds[a] = HIGH;
       delay(300);
-      atualizar();
+      updateReg();
       leds[b] = HIGH;
       delay(300);
-      atualizar();
+      updateReg();
       leds[a] = LOW;
-      atualizar();
+      updateReg();
       leds[b] = LOW;
-      atualizar;
+      updateReg;
       a++;
       b++;
     }
