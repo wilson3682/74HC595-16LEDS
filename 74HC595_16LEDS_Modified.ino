@@ -1,6 +1,7 @@
 /*
   74HC595 (16 LEDS)
   https://github.com/leticia-pontes/74HC595-16LEDS/tree/main
+  https://github.com/wilson3682/74HC595-16LEDS/tree/main
 */
 
 int clockPin = 10;
