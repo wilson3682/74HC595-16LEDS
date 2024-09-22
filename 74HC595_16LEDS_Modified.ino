@@ -2,6 +2,7 @@
   74HC595 (16 LEDS)
   https://github.com/leticia-pontes/74HC595-16LEDS/tree/main
   https://github.com/wilson3682/74HC595-16LEDS/tree/main
+  wokwi simulation: https://wokwi.com/projects/409749088760157185
 */
 
 int clockPin = 10;
