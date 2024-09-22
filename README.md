@@ -2,6 +2,9 @@
 
 This project was developed around 2020 during Technical Education (integrated with High School) as part of an evaluation. It uses the 74HC595 IC to control 16 LEDs through a serial-to-parallel shift register. The project implements various lighting effects on the LEDs, based on a control sequence sent to the IC.
 
+## Wokwi Simulation
+https://wokwi.com/projects/409749088760157185
+
 ## Components Used
 
 - Arduino (or compatible microcontroller)
