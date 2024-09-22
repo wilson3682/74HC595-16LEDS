@@ -58,7 +58,7 @@ void clearReg() {
 void printLabel(char* effect, int repeat) {
   Serial.print(effect);
   Serial.print("\t");
-  Serial.print("repeat");
+  Serial.print("runs");
   Serial.print(" ");
   Serial.print(repeat);
   Serial.print(" ");
