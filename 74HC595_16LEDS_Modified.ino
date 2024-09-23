@@ -8,7 +8,9 @@
 int clockPin = 10;
 int latchPin = 9;
 int dataPin = 8;
-#define numLeds 16
+
+#define numShiftRegs 3
+#define numLeds numShiftRegs * 8
 boolean leds[numLeds];
 
 void setup() {
@@ -58,7 +60,7 @@ void clearReg() {
 void printLabel(char* effect, int repeat) {
   Serial.print(effect);
   Serial.print("\t");
-  Serial.print("runs");
+  Serial.print("run");
   Serial.print(" ");
   Serial.print(repeat);
   Serial.print(" ");
@@ -71,13 +73,12 @@ void Effect1(int repeat) {
   clearReg();
   for (int t = 0; t < repeat; t++) {
     for (int i = 0; i < numLeds; i++) {
-      leds[i] = HIGH;
-      delay(40);
+      leds[i] = HIGH;      
       updateReg();
-
-      leds[i] = LOW;
-      delay(40);
+      delay(20);
+      leds[i] = LOW;      
       updateReg();
+      delay(20);
     }
   }
 }
@@ -88,13 +89,12 @@ void Effect2(int repeat) {
   clearReg();
   for (int t = 0; t < repeat; t++) {
     for (int i = numLeds - 1; i >= 0; i--) {
-      leds[i] = HIGH;
-      delay(40);
+      leds[i] = HIGH;      
       updateReg();
-
-      leds[i] = LOW;
-      delay(40);
+      delay(20);
+      leds[i] = LOW;      
       updateReg();
+      delay(20);
     }
   }
 }
@@ -105,14 +105,14 @@ void Effect3(int repeat) {
   clearReg();
   for (int t = 0; t < repeat; t++) {
     for (int i = 0; i < numLeds; i++) {
-      leds[i] = HIGH;
-      delay(80);
+      leds[i] = HIGH;      
       updateReg();
+      delay(40);
     }
     for (int i = 0; i < numLeds; i++) {
-      leds[i] = LOW;
-      delay(80);
+      leds[i] = LOW;      
       updateReg();
+      delay(40);
     }
   }
 }
@@ -123,14 +123,14 @@ void Effect4(int repeat) {
   clearReg();
   for (int t = 0; t < repeat; t++) {
     for (int i = numLeds - 1; i >= 0; i--) {
-      leds[i] = HIGH;
-      delay(80);
+      leds[i] = HIGH;      
       updateReg();
+      delay(40);
     }
     for (int i = numLeds - 1; i >= 0; i--) {
-      leds[i] = LOW;
-      delay(80);
+      leds[i] = LOW;      
       updateReg();
+      delay(40);
     }
   }
 }
@@ -143,16 +143,16 @@ void Effect5(int repeat) {
   for (int t = 0; t < repeat; t++) {
     for (int j = numLeds - 1; j >= 0; j--) {
       for (int i = 0; i < k; i++) {
-        leds[i] = HIGH;
-        delay(25);
+        leds[i] = HIGH;        
         updateReg();
-        leds[i] = LOW;
-        delay(25);
+        delay(10);
+        leds[i] = LOW;        
         updateReg();
+        delay(10);
       }
-      leds[j] = HIGH;
-      delay(25);
+      leds[j] = HIGH;      
       updateReg();
+      delay(10);
       k--;
     }
   }
@@ -167,14 +167,14 @@ void Effect6(int repeat) {
     for (int j = 0; j < numLeds; j++) {
       for (int i = numLeds; i >= k; i--) {
         leds[i] = HIGH;
-        delay(25);
+        delay(10);
         updateReg();
         leds[i] = LOW;
-        delay(25);
+        delay(10);
         updateReg();
       }
       leds[j] = HIGH;
-      delay(25);
+      delay(10);
       updateReg();
       k++;
     }
@@ -190,10 +190,10 @@ void Effect7(int repeat) {
   for (int t = 0; t < repeat; t++) {
     for (int i = j; i < k; i++) {
       leds[j] = HIGH;
-      delay(60);
+      delay(30);
       updateReg();
       leds[k] = HIGH;
-      delay(60);
+      delay(30);
       updateReg();
       j++;
       k--;
@@ -202,10 +202,10 @@ void Effect7(int repeat) {
     k = numLeds - 1;
     for (int i = j; i < k; i++) {
       leds[j] = LOW;
-      delay(60);
+      delay(30);
       updateReg();
       leds[k] = LOW;
-      delay(60);
+      delay(30);
       updateReg();
       j++;
       k--;
@@ -217,28 +217,28 @@ void Effect7(int repeat) {
 void Effect8(int repeat) {
   printLabel("Effect 8", repeat);
   clearReg();
-  int j = 7;
-  int k = 8;
+  int j = (numLeds / 2) - 1;
+  int k = numLeds / 2;
   for (int t = 0; t < repeat; t++) {
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < numLeds / 2; i++) {
       leds[j] = HIGH;
-      delay(60);
+      delay(30);
       updateReg();
       leds[k] = HIGH;
-      delay(60);
+      delay(30);
       updateReg();
       j--;
       k++;
     }
-    j = 7;
-    k = 8;
+    j = (numLeds / 2) - 1;
+    k = numLeds / 2;
 
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < numLeds / 2; i++) {
       leds[j] = LOW;
-      delay(60);
+      delay(30);
       updateReg();
       leds[k] = LOW;
-      delay(60);
+      delay(30);
       updateReg();
       j--;
       k++;
@@ -254,15 +254,15 @@ void Effect9(int repeat) {
   for (int t = 0; t < repeat; t++) {
     for (j = 0; j < numLeds; j++) {
       leds[j] = HIGH;
-      delay(40);
+      delay(10);
       updateReg();
 
       for (int i = j + 1; i < numLeds; i++) {
         leds[i] = HIGH;
-        delay(40);
+        delay(10);
         updateReg();
         leds[i] = LOW;
-        delay(40);
+        delay(10);
         updateReg();
       }
     }
@@ -277,14 +277,14 @@ void Effect10(int repeat) {
   for (int t = 0; t < repeat; t++) {
     for (j = numLeds - 1; j >= 0; j--) {
       leds[j] = HIGH;
-      delay(40);
+      delay(10);
       updateReg();
       for (int i = j - 1; i >= 0; i--) {
         leds[i] = HIGH;
-        delay(40);
+        delay(10);
         updateReg();
         leds[i] = LOW;
-        delay(40);
+        delay(10);
         updateReg();
       }
     }
